@@ -1,0 +1,344 @@
+<html>
+<head>
+<title>get money clicker</title>
+<script>
+window.onload =function Prep() {
+    setInterval('Idle()',500);
+	tInterval = setInterval(Total, 250);
+	setInterval('Add()', 500);
+	document.getElementById('moneyBox').style.width = 100 + "px";
+	document.getElementById('moneyBox').style.height = 100 + "px";
+	$(".2").hide();
+	$(".3").hide();
+	$(".area").hide();
+	$(".4").hide();
+	$(".5").hide();
+}
+</script>
+<style>
+.New {
+	border-radius: 0px;
+}
+.New:hover {
+	font-size:30px !important;
+	width:190px !important;
+	background-color:black;
+	color:white;
+	border-radius: 20px;
+}
+.game {
+	position:relative;
+}
+#All {
+	font-size:18px;
+}
+p {
+  color:white;
+}
+h2::selection {
+  color: blue;
+  background: purple;
+}
+h2 {
+  color:purple;
+  transition-timing-function:ease;
+  transition-duration:3s;
+  text-shadow: 4px 0px 6px #1C6EA4, 4px 4px 6px #1C6EA4, -4px 4px 6px #1C6EA4, -4px -4px 6px #1C6EA4;
+}
+h2:hover {
+  text-shadow: -6px 6px 10px #1C6EA4, 6px -6px 10px #1C6EA4, -8px -5px 20px #300391, -7px -5px 12px #300391;
+}
+.hide {
+	position: absolute;
+	right: 5px;
+}
+#moneyBox {
+	transition-duration:500ms;
+	background:url(https://cdn.discordapp.com/attachments/547124167502331942/549315397975801877/Money.png) repeat top left 50px;
+	border: 3px solid white;
+	animation-name:background;
+	animation-duration:40s;
+	animation-timing-function:linear;
+	background-size:200px;
+	animation-iteration-count:infinite;
+	position: absolute;
+    overflow: hidden;
+	background-clip:padding-box;
+	right:100px;
+	top:100px;
+	margin-bottom:45px;
+	background-position: 1800px 8000px;
+	transform:rotate(180deg),rotateX(180deg);
+}
+@keyframes background {
+	100% {background-position: 1800px 8000px; transform:rotate(540deg);}
+	50% {background-size:800px;}
+}
+.scroll {
+    height: 400px;
+}
+#Gmoney:hover ~ #Money {
+	font-size: 20px;
+	margin-top: -23px;
+	margin-left: 3px;
+	color:black;
+}
+#Money {
+    font-size: 30px;
+	position: sticky;
+	top: 0;
+	margin-bottom: 20px;
+	font-family: Helvetica;
+	transition: 1s cubic-bezier(0.680, -0.185, 0.380, 1.000);
+	z-index: 100;
+}
+.block {
+    display: block;
+    margin-top: 10px;
+}
+.btnSize {
+   width: 120px;
+   height: 25px;
+   font-size: 15px;
+   position: relative;
+   transition: 1s cubic-bezier(0.680, -0.185, 0.380, 1.000);
+   -webkit-transition: 1s cubic-bezier(0.680, -0.185, 0.380, 1.000);
+   -moz-transition: 1s cubic-bezier(0.680, -0.185, 0.380, 1.000);
+}
+.btnSize:hover {
+   width: 175px;
+   height: 75px;
+   font-size: 20px;
+   margin-top: 0px;
+}
+body {
+    background:url(https://cdn.discordapp.com/attachments/547124167502331942/553734249996615720/retropsproject_galaxy.png);
+	background-size: 100% 140vh;
+}
+.DollarMarquee {
+    font-family:sans-serif;
+    font-size:200%;
+    font-weight:bold;
+    line-height:1.3em;
+    color:#B720B7;
+    padding:0em;
+}
+
+</style>
+</head>
+<body>
+<div class="game">
+<button class="hide">Hide / Unhide</button>
+<input type="button" value="start" onClick="startgame()";/>
+<h2>Money Clicker</h2>
+<script>
+var Power = 1;
+var Amount = 0;
+var Price = 10;
+var PriceIdle = 200;
+var Opower = 0;
+var Price2 = 10000;
+var Price3 = 30000;
+var Price4 = 80000;
+var PriceArea = 60000;
+var Price5 = 150000;
+var total = 0;
+var c = 0;
+var AreaBought = 0;
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+function Add() {
+	if(Amount>8000) $(".2").slideDown(4000);
+	if(Amount>27000) $(".area").slideDown(4000);
+	if(Amount>26000) $(".3").slideDown(4000);
+	if(Amount>70000) $(".4").slideDown(4000);
+	if(Amount>130000) $(".5").slideDown(4000);
+}
+function Total() {
+	document.getElementById('All').innerHTML = "Total Money:$" + total;
+	if ((total*2)+1<=Amount && c==0) {
+			c=1;
+			alert('CHEATER\n\n(if you are a dev its fine)');
+	}
+}
+function Save() {
+	var save = {
+		Power: Power,
+		Money: Amount,
+		Price1: Price,
+		Price2: Price2,
+		Price3: Price3,
+		Price4: Price4,
+		Price5: Price5,
+		IdlePrice: PriceIdle,
+		total: total,
+		IdlePower: Opower,
+		AreaBought: AreaBought
+	};
+	localStorage.setItem("save",JSON.stringify(save));
+}
+function LoadCheck() {
+var answer = confirm("Load data? \n(This will OVERWRITE your current progress) \nThis will not update text on screen");
+	if (answer) {
+		Load();
+	}
+}
+async function Load() {
+	var load = JSON.parse(localStorage.getItem("save"));
+	clearInterval(tInterval);
+	Power = load.Power;
+	Price = load.Price1;
+	Amount = load.Money;
+	PriceIdle = load.IdlePrice;
+	Opower = load.IdlePower;
+	Price2 = load.Price2;
+	Price3 = load.Price3;
+	Price4 = load.Price4;
+	Price5 = load.Price5;
+	total = load.total; 
+	AreaBought = load.AreaBought;
+	$(".2").slideUp(4000);
+	$(".3").slideUp(3000);
+	$(".area").slideUp(3500)
+	$(".4").slideUp(2000);
+	$(".5").slideUp(1000);
+	document.getElementById('All').innerHTML = "Total Money:$" + Math.round(total/10);
+	await sleep(200);
+	document.getElementById('All').innerHTML = "Total Money:$" + Math.round(total/8);
+	await sleep(200);
+	document.getElementById('All').innerHTML = "Total Money:$" + Math.round(total/5);
+	await sleep(200);
+	document.getElementById('All').innerHTML = "Total Money:$" + Math.round(total/3);
+	await sleep(200);
+	document.getElementById('All').innerHTML = "Total Money:$" + Math.round(total/2);
+	await sleep(200);
+	tInterval = setInterval(Total, 250);
+}
+function Click() {
+    Amount=Amount + Power;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+	total = total + Power;
+	document.getElementById('moneyBox').style.width = 100 + (total/Power) + "px";
+	document.getElementById('moneyBox').style.height = 100 + (total/Power) + "px";
+}
+function UpgradeCheck() {
+    if (Amount >= Price) UpgradeBuy();
+}
+function UpgradeBuy() {
+    Power=Math.round(Power*1.5);
+    Amount=Amount-Price; 
+    Price=Price*3;
+    document.getElementById('Price').innerHTML = "Price:" + "$" + Price;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+}
+
+function UpgradeCheck() {
+    if (Amount >= Price) UpgradeBuy();
+}
+
+function UpgradeCheck2() {
+    if (Amount >= Price2) UpgradeBuy2();
+}
+
+function UpgradeBuy2() {
+    Power=Power*2;
+    Amount=Amount-Price2;
+    Price2=Price2*3;
+    document.getElementById('Price2').innerHTML = "Price2:" + "$" + Price2;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+}
+
+function UpgradeCheck3() {
+    if (Amount >= Price3) UpgradeBuy3();
+}
+
+function UpgradeBuy3() {
+    Power=Math.round(Power*2.5);
+    Amount=Amount-Price3;
+    Price3=Price3*2;
+    document.getElementById('Price3').innerHTML = "Price3:" + "$" + Price3;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+}
+
+function UpgradeCheck4() {
+    if (Amount >= Price4) UpgradeBuy4();
+}
+
+function UpgradeBuy4() {
+    Power=Math.round(Power*5);
+    Amount=Amount-Price4;
+    Price4=Price4*3;
+    document.getElementById('Price4').innerHTML = "Price4:" + "$" + Price4;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+}
+
+function areaUnlock() {
+	
+		
+
+}
+
+function UpgradeCheck5() {
+   if (Amount >= Price5) UpgradeBuy5();
+}
+
+function UpgradeBuy5() {
+    Power=Math.round(Power*8);
+    Amount=Amount-Price5;
+    Price5=Price5*6;
+    document.getElementById('Price5').innerHTML = "Price5:" + "$" + Price5;
+    document.getElementById('Money').innerHTML = "Money" + "$" + Amount;
+}
+
+function IdleCheck() {
+    if (Amount >= PriceIdle) IdleBuy();
+}
+function IdleBuy() {
+    Opower = Opower + 1;
+    Amount = Amount - PriceIdle;
+    PriceIdle = PriceIdle*2;
+    document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+    document.getElementById('IdlePrice').innerHTML = "Investment Price:" + "$" + PriceIdle;
+}
+function Idle() {
+    Amount = Amount + (Opower/2);
+    total = total + Opower;
+    if (Opower > 0) document.getElementById('Money').innerHTML = "Money:" + "$" + Amount;
+    document.getElementById('moneyBox').style.width = 100 + (total/Power) + "px";
+    document.getElementById('moneyBox').style.height = 100 + (total/Power) + "px";
+}
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script><script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+<script>
+$(function() {
+  $('.hide').click(function(){
+        $('.hidden').slideToggle(1000);
+    });
+});
+</script>
+
+<button type="Money" onclick="Click()" class="btnSize" id="Gmoney">Get Money</button>
+<button onclick="IdleCheck()" class="btnSize">Invest</button>
+<p id="Money"></p><br/>
+<p id="IdlePrice">Investment Price:$200</p>    
+<button onclick="UpgradeCheck()" class="btnSize block"> Upgrade Click</button>
+<p id="Price">Price:$10</p>
+<button onclick="UpgradeCheck2()" class="btnSize block 2"> Upgrade Click2</button>
+<p id="Price2" class="2">Price2:$10000</p>
+<button onclick="UpgradeCheck3()" class="btnSize block 3"> Upgrade Click3</button>
+<p id="Price3" class="3">Price3:$30000</p>
+<button onclick="UpgradeCheck4()" class="btnSize block 4"> Upgrade Click4</button>
+<p id="Price4" class="4">Price4:$80000</p>
+<button class="new btnSize area" onclick="areaUnlock()"><b>Test Button</b></button><p class="area" style="display: inline;">($0)</p>
+<button onclick="UpgradeCheck5()" class="btnSize block 5"> Upgrade Click5</button>
+<p id="Price5" class="5">Price5:$150000</p><br/>
+<div id="moneyBox" class="hidden">
+</div>
+<button onclick="Save()">Save!</button><button onclick="LoadCheck()">Load!</button>
+<p id="All">Total Money:$0</p>
+<marquee class="DollarMarquee" direction="right" scrollamount="14" font-size="100px" behavior="alternate">$$$</marquee>
+<div class="scroll">
+</div>
+</body>
+</html> 
